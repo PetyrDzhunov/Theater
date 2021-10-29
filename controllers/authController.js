@@ -8,7 +8,10 @@ router.get('/register', isGuest(), (req, res) => {
 
 router.post('/register',
     isGuest(),
-    body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters long'),
+    body('username').isLength({ min: 3 }).withMessage('Username must be at least 3 characters long').bail()
+    .isAlphanumeric().withMessage('Username may contain only english letters and digrits'),
+    body('password').isLength({ min: 3 }).withMessage('Password must be at least 3 characters long').bail()
+    .isAlphanumeric().withMessage('Password may contain only english letters and digrits'),
     body('rePass').custom((value, { req }) => {
         if (value != req.body.password) {
             throw new Error('Passwords don\'t match');
