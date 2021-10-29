@@ -43,8 +43,7 @@ router.get('/details/:id', isUser(), async(req, res) => {
         const play = await req.storage.getPlayById(id);
         play.hasUser = Boolean(req.user);
         play.isAuthor = req.user && req.user._id == play.author;
-        play.liked = req.user && play.usersLiked.includes(req.user._id);
-        console.log(play);
+        play.liked = req.user && play.usersLiked.some(x => x._id == req.user._id);
         res.render('play/details', { play });
     } catch (error) {
         console.log(error.message);
@@ -93,6 +92,7 @@ router.post('/edit/:id', isUser(), async(req, res) => {
     }
 });
 
+
 router.get('/delete/:id', async(req, res) => {
     let id = req.params.id;
     try {
@@ -107,6 +107,22 @@ router.get('/delete/:id', async(req, res) => {
         console.log(error.message);
         res.redirect(`/play/details/${id}`);
     };
+});
+
+
+router.get('/like/:id', isUser(), async(req, res) => {
+    const id = req.params.id;
+    try {
+        const play = await req.storage.getPlayById(id)
+        if (play.author == req.user._id) {
+            throw new Error('Cannot like your own play!');
+        };
+        await req.storage.likePlay(id, req.user._id);
+        res.redirect(`/play/details/${id}`);
+    } catch (error) {
+        console.log(error.message);
+        res.render('/play/details');
+    }
 });
 
 
