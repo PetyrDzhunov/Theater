@@ -7,6 +7,7 @@ const schema = new Schema({
     public: { type: Boolean, default: false },
     createdAt: { type: Date, required: true },
     usersLiked: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
+    author: { type: Schema.Types.ObjectId, ref: "User" }
 });
 
 module.exports = model('Play', schema);

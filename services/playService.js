@@ -1,0 +1,1 @@
+const Theater = require('../models/Play');
