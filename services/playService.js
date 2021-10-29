@@ -12,7 +12,6 @@ async function getPlayById(id) {
     return Play.findById(id).populate('usersLiked').lean();
 };
 
-
 async function createPlay(playData) {
     const pattern = new RegExp(`^${playData.title}$`, 'i')
     const existing = await Play.findOne({ title: { $regex: pattern } });
@@ -28,10 +27,10 @@ async function createPlay(playData) {
 async function editPlay(id, playData) {
     const play = await Play.findById(id);
 
-    play.title = playData.title;
-    play.description = playData.description;
-    play.imageUrl = playData.imageUrl;
-    play.public = Boolean(playData.public);
+    play.title = playData.title.trim();
+    play.description = playData.description.trim();
+    play.imageUrl = playData.imageUrl.trim();
+    play.public = Boolean(playData.public).trim();
 
     return play.save();
 };
