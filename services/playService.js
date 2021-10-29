@@ -22,7 +22,14 @@ async function createPlay(playData) {
 };
 
 async function editPlay(id, playData) {
+    const play = await Play.findById(id);
 
+    play.title = playData.title;
+    play.description = playData.description;
+    play.imageUrl = playData.imageUrl;
+    play.public = Boolean(playData.public);
+
+    return play.save();
 };
 
 async function deletePlay(id) {
