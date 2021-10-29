@@ -36,7 +36,6 @@ router.post('/register',
             }
             res.render('register', ctx);
         }
-
     });
 
 router.get('/login', isGuest(), (req, res) => {
@@ -48,7 +47,7 @@ router.post('/login', isGuest(), async(req, res) => {
         await req.auth.login(req.body.username, req.body.password);
         res.redirect('/');
     } catch (err) {
-        console.log(error.message);
+        console.log(err.message);
         const ctx = {
             errors: [err.message],
             userData: {

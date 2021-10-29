@@ -3,11 +3,16 @@
     <h2>Login</h2>
     <div>
       <label for='username'>Username:</label>
-      <input type='text' placeholder='Username' value='{{userData.username}}' />
+      <input
+        type='text'
+        name='username'
+        placeholder='Username'
+        value='{{userData.username}}'
+      />
     </div>
     <div>
       <label for='password'>Password:</label>
-      <input type='password' placeholder='Password' value='' />
+      <input type='password' name='password' placeholder='Password' value='' />
     </div>
 
     <button class='btn' type='submit'>Login</button>
