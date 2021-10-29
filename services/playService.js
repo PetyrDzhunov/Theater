@@ -30,7 +30,7 @@ async function editPlay(id, playData) {
     play.title = playData.title.trim();
     play.description = playData.description.trim();
     play.imageUrl = playData.imageUrl.trim();
-    play.public = Boolean(playData.public).trim();
+    play.public = Boolean(playData.public)
 
     return play.save();
 };
