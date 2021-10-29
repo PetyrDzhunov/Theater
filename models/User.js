@@ -8,7 +8,8 @@ const schema = new Schema({
     hashedPassword: {
         type: String,
         required: true,
-    }
+    },
+    likedPlays: [{ type: Schema.Types.ObjectId, ref: "Play" }]
 });
 
 

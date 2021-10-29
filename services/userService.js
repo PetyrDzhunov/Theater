@@ -2,7 +2,7 @@ const User = require('../models/User');
 
 async function createUser(username, hashedPassword) {
     //TODO adapt properties to project requirments
-    const user = new User({ username, hashedPassword });
+    const user = new User({ username, hashedPassword, likedPlays: [] });
     await user.save();
     return user;
 };
