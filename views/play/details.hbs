@@ -1,27 +1,32 @@
 <main>
-  <div class='container'>
+  {{#with play}}
+    <div class='container'>
+      <section class='details'>
+        <h1>{{title}}</h1>
+        <div>
+          <img src='{{imageUrl}}' />
+        </div>
+      </section>
 
-    <section class='details'>
-      <h1>Theater title: Who's Afraid of Virginia Woolf? by Edward Albee</h1>
-      <div>
-        <img
-          src='https://media.timeout.com/images/103727744/380/285/image.jpg'
-        />
-      </div>
-    </section>
+      <section class='details'>
+        <h3>Theater Description</h3>
+        <p>{{description}}</p>
 
-    <section class='details'>
-      <h3>Theater Description</h3>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, et
-        ex. Dignissimos voluptatum recusandae quos. Eum beatae soluta velit
-        voluptas hic incidunt ab dolorem ipsam blanditiis laudantium.
-        Distinctio, aliquam libero.</p>
-      <div class='buttons'>
-        <a class='btn delete' href=''>Delete</a>
-        <a class='btn edit' href=''>Edit</a>
-        <span class='liked'>You have already liked this play!</span>
-        <a class='btn like' href=''>Like</a>
-      </div>
-    </section>
-  </div>
+        {{#if hasUser}}
+          <div class='buttons'>
+            {{#if isAuthor}}
+              <a class='btn delete' href='/play/delete/{{_id}}'>Delete</a>
+              <a class='btn edit' href='play/delete{{_id}}'>Edit</a>
+            {{else}}
+              {{#if liked}}
+                <span class='liked'>You have already liked this play!</span>
+              {{else}}
+                <a class='btn like' href=''>Like</a>
+              {{/if}}
+            {{/if}}
+          </div>
+        {{/if}}
+      </section>
+    </div>
+  {{/with}}
 </main>

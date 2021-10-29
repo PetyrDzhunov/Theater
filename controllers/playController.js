@@ -36,4 +36,31 @@ router.post('/create', isUser(), async(req, res) => {
     }
 });
 
+router.get('/details/:id', async(req, res) => {
+    try {
+        const id = req.params.id;
+
+        const play = await req.storage.getPlayById(id);
+        play.hasUser = Boolean(req.user);
+        play.isAuthor = req.user && req.user._id == play.author;
+        play.liked = req.user && play.usersLiked.includes(req.user._id);
+        console.log(play);
+        res.render('play/details', { play });
+    } catch (error) {
+        console.log(error.message);
+        res.redirect('/404');
+    };
+});
+
+router.get('/delete/:id', async(req, res) => {
+    let id = req.params.id;
+    try {
+        await req.storage.deletePlay(id);
+        res.redirect('/');
+    } catch (error) {
+        console.log(error.message);
+        res.redirect(`/play/details/${id}`);
+    };
+});
+
 module.exports = router;
