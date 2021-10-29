@@ -3,7 +3,7 @@
   <head>
     <meta charset='UTF-8' />
     <title>Express Exam</title>
-    <link href='/static/css/style.css' type='text/css' rel='stylesheet' />
+    <link href='/static/css/site.css' type='text/css' rel='stylesheet' />
   </head>
 
   <body>
@@ -11,16 +11,19 @@
       <nav>
         <a>Theater</a>
         <ul>
-          <li><a href='#'>Home </a></li>
-          <li><a href='#'>Logout</a></li>
-          <li><a href='#'>Login</a></li>
-          <li><a href='#'>Register</a></li>
+          <li><a href='/'>Home </a></li>
+          <li><a href='/auth/logout'>Logout</a></li>
+          <li><a href='/auth/login'>Login</a></li>
+          <li><a href='/auth/register'>Register</a></li>
         </ul>
       </nav>
-
-      <section class='notifications error'>
-        <p>Message...</p>
-      </section>
+      {{#if errors}}
+        <section class='notifications error'>
+          {{#each errors}}
+            <p>{{this}}</p>
+          {{/each}}
+        </section>
+      {{/if}}
       {{{body}}}
       <footer>
         <div>© 2020

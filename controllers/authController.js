@@ -22,14 +22,14 @@ router.post('/register',
         const { errors } = validationResult(req);
         try {
             if (errors.length > 0) {
-                throw new Error('Validation error');
+                throw new Error(Object.values(errors).map(e => e.msg).join('\n'));
             };
             await req.auth.register(req.body.username, req.body.password);
             res.redirect('/'); //TODO  change redirect location
         } catch (error) {
             console.log(error.message);
             const ctx = {
-                errors,
+                errors: error.message.split('\n'),
                 userData: {
                     username: req.body.username
                 }
