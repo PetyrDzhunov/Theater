@@ -1,7 +1,7 @@
 const Play = require('../models/Play');
 
 async function getAllPlays() {
-
+    return Play.find({}).lean();
 };
 
 async function getPlayById(id) {
